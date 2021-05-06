@@ -58,13 +58,27 @@ class Stats:
         for x in range(self.column):
             corr = []
             for y in range(self.column):
+                meanX = np.sum(self.data[:, x]) / self.row
+                meanY = np.sum(self.data[:, y]) / self.row
+                positive = 0
+                negetive = 0
                 if y != x:
-                    meanX = self.data[:, x] / self.row
-                    meanY = self.data[:, y] / self.row
-                    covariance = np.sum(
-                        (self.data[:, x] - meanX) * (self.data[:, y] - meanY)) / np.sqrt(
-                        np.sum(np.square(self.data[:, x] - meanX)) * np.sum(np.square(self.data[:, y] - meanY)))
-                    corr.append(covariance)
+                    for index in range(self.row):
+                        if ((self.data[index, x] >= meanX) and (self.data[index, y] >= meanY)) or ((self.data[index, x] < meanX) and (self.data[index, y] < meanY)):
+                            positive += 1
+                        else:
+                            negetive += 1
+                if y != x:
+                    ssxy = np.sum((self.data[:, x] - meanX)
+                                  * (self.data[:, y] - meanY))
+                    ssxx = np.sum((self.data[:, x] - meanX)**2)
+                    ssyy = np.sum((self.data[:, y] - meanY)**2)
+                    covariance = ssxy / np.sqrt(ssxx * ssyy)
+                    if positive >= negetive:
+                        corr.append(+covariance)
+                    else:
+                        corr.append(-covariance)
+
                 else:
                     corr.append(1)
             correlation.append(corr)
@@ -72,7 +86,10 @@ class Stats:
 
 
 if __name__ == '__main__':
-    array = np.array([[1, 2, 44], [2, 5, 34], [3, 8, 24], [4, 5, 14]])
+    array = np.array([
+        [1, 6],
+        [2, 4],
+        [3, 1]])
     stats = Stats(array)
     print(stats.mean())
     print(stats.median())
