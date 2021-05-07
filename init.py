@@ -86,10 +86,7 @@ class Stats:
 
 
 if __name__ == '__main__':
-    array = np.array([
-        [1, 6],
-        [2, 4],
-        [3, 1]])
+    array = np.array([[x, np.sqrt((x**4)/(x*(x+2)))] for x in range(1,20)])
     stats = Stats(array)
     print(stats.mean())
     print(stats.median())
