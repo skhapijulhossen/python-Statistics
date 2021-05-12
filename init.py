@@ -5,6 +5,7 @@ class Stats:
     """
     This Class is implementation of Statistics concepts from scratch. Numpy is used for efficient N-Dimentional array Execution.
     """
+
     def __init__(self, data: np.ndarray):
         self.data = data
         self.row = data.shape[0]
@@ -95,7 +96,8 @@ class Stats:
 
 
 if __name__ == '__main__':
-    array = np.array([[x, np.sqrt((x**0.54)/(x*(x+2))) ,x**3] for x in range(1,20)])
+    array = np.array([[x, np.sqrt((x**0.54)/(x*(x+2))), x**3]
+                      for x in range(1, 20)])
     stats = Stats(array)
     print(stats.mean())
     print(stats.median())
