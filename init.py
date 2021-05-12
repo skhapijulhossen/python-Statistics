@@ -2,17 +2,22 @@ import numpy as np
 
 
 class Stats:
+    """
+    This Class is implementation of Statistics concepts from scratch. Numpy is used for efficient N-Dimentional array Execution.
+    """
     def __init__(self, data: np.ndarray):
         self.data = data
         self.row = data.shape[0]
         self.column = data.shape[1]
 
     def mean(self):
+        "As Name suggest this function will return mean of N dimensional array."
         mean = [(np.sum(self.data[:, col]) / self.row)
                 for col in range(self.column)]
         return np.array(mean)
 
     def median(self):
+        "This Function will return Median of N-dimensional array."
         medians = []
         for col in range(self.column):
             if self.row % 2 == 0:
@@ -26,6 +31,7 @@ class Stats:
         return np.array(medians)
 
     def standardDev(self):
+        "This Function will return Standard deviation of N-dimensional array."
         stdDevs = []
         means = self.mean()
         for col in range(self.column):
@@ -34,6 +40,7 @@ class Stats:
         return np.array(stdDevs)
 
     def skewness(self):
+        "This Function will return Skewness of N-dimensional array."
         skewNess = []
         means = self.mean()
         stds = self.standardDev()
@@ -44,6 +51,7 @@ class Stats:
         return np.array(skewNess)
 
     def kurtosis(self):
+        "This Function will return Kurtosis value of N-dimensional array."
         kurtosis = []
         means = self.mean()
         stds = self.standardDev()
@@ -54,6 +62,7 @@ class Stats:
         return np.array(kurtosis)
 
     def correlation(self):
+        "This Function will return Correlation of N-dimensional array in the form of matrix for each column."
         correlation = []
         for x in range(self.column):
             corr = []
@@ -86,7 +95,7 @@ class Stats:
 
 
 if __name__ == '__main__':
-    array = np.array([[x, np.sqrt((x**4)/(x*(x+2)))] for x in range(1,20)])
+    array = np.array([[x, np.sqrt((x**0.54)/(x*(x+2))) ,x**3] for x in range(1,20)])
     stats = Stats(array)
     print(stats.mean())
     print(stats.median())
