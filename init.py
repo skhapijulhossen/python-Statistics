@@ -12,7 +12,8 @@ class Stats:
         try:
             self.column = data.shape[1]
         except Exception:
-            if self.row > 0: self.column = 0
+            if self.row > 0:
+                self.column = 0
 
     def mean(self):
         "As Name suggest this function will return mean of N dimensional array."
@@ -25,7 +26,7 @@ class Stats:
         medians = []
         try:
             for col in range(self.column):
-                self.data[:, col]=np.sort(self.data[:, col])
+                self.data[:, col] = np.sort(self.data[:, col])
                 if self.row % 2 == 0:
                     index1 = self.row//2 - 1
                     index2 = index1 + 1
@@ -34,7 +35,8 @@ class Stats:
                 else:
                     index = self.row//2 + 1
                     medians.append(self.data[index, col])
-        except Exception: return -1
+        except Exception:
+            return -1
         return np.array(medians)
 
     def standardDev(self):
@@ -56,7 +58,8 @@ class Stats:
                 skew = np.sum(pow(self.data[:, col] - means[col], 3))
                 skew = (skew / pow(stds[col], 3)) / self.row
                 skewNess.append(skew)
-        except Exception: return -1
+        except Exception:
+            return -1
         return np.array(skewNess)
 
     def kurtosis(self):
@@ -69,7 +72,8 @@ class Stats:
                 kurtosisVal = np.sum(pow(self.data[:, col] - means[col], 4))
                 kurtosisVal = (kurtosisVal / pow(stds[col], 4)) / self.row
                 kurtosis.append(kurtosisVal)
-        except Exception: return -1
+        except Exception:
+            return -1
         return np.array(kurtosis)
 
     def correlation(self):
@@ -103,14 +107,15 @@ class Stats:
                     else:
                         corr.append(1)
                 correlation.append(corr)
-        except Exception: return -1
+        except Exception:
+            return -1
         return np.array(correlation)
 
 
 if __name__ == '__main__':
     # array = np.array([[x, np.sqrt((x**0.54)/(x*(x+2))), x**3]
     #                   for x in range(1, 20)])
-    array = np.array([[1,2],[4,9],[6,7]])
+    array = np.array([[1, 2], [4, 9], [6, 7]])
     stats = Stats(array)
     print(stats.mean())
     print(stats.median())
